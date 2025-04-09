@@ -1,0 +1,102 @@
+services:
+  main-production:
+    container_name: main-prod
+    profiles: [production]
+    build:
+      context: .
+    env_file:
+      - .production.env
+    environment:
+      - TZ=Europe/Moscow
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - 3000:5000
+    command: node dist/main.js
+    restart: always
+  
+  wb-discharge:
+    container_name: wb-discharge
+    profiles: [production]
+    build:
+      context: ../dcontract_nest_discharge_wb/
+    env_file:
+      - .production.env
+    environment:
+      - TZ=Europe/Moscow
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - 3033:5000
+    command: node dist/main.js
+    restart: always
+
+  magnit-discharge:
+    container_name: magnit-discharge
+    profiles: [production]
+    build:
+      context: ../dcontract_nest_discharge_magnit/
+    env_file:
+      - .production.env
+    environment:
+      - TZ=Europe/Moscow
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - 3034:5000
+    command: node dist/main.js
+    restart: always
+  
+  main-development-danil:
+    container_name: main-devp-danil
+    profiles: [danil]
+    build:
+      context: .
+    env_file:
+      - .development.env
+    environment:
+      - TZ=Europe/Moscow
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - 5000:5000
+    command: node dist/main.js
+    restart: always
+  
+  main-development-nikita:
+    container_name: main-devp-nikita
+    profiles: [nikita]
+    build:
+      context: .
+    env_file:
+      - .development.env
+    environment:
+      - TZ=Europe/Moscow
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - 5001:5000
+    command: node dist/main.js
+    restart: always
+  
+  main-development-vlad:
+    container_name: main-devp-vlad
+    profiles: [vlad]
+    build:
+      context: .
+    env_file:
+      - .development.env
+    environment:
+      - TZ=Europe/Moscow
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - 5002:5000
+    command: node dist/main.js
+    restart: always
